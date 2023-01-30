@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  database:
+    image: postgres
+    container_name: db_jobsapi
+    hostname: db_jobsapi
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=jobsApi
+      - POSTGRES_PASSWORD=jobsApi
+      - POSTGRES_DB=db_jobsapi
+    volumes:
+      - pgdata_jobs-api:/data/postgres
+
+volumes:
+  pgdata_jobs-api:
+    driver: local
+
