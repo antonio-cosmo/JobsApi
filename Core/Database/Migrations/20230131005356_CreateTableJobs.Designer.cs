@@ -8,11 +8,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
-namespace JobsApi.Migrations
+namespace JobsApi.Core.Database.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230130194930_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20230131005356_CreateTableJobs")]
+    partial class CreateTableJobs
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
