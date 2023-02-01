@@ -1,13 +1,13 @@
-using JobsApi.Core.Models;
+using JobsApi.Api.Jobs.Dtos;
 
 namespace JobsApi.Api.Jobs.Services
 {
   public interface IJobServices
   {
-    ICollection<Job> FindAll();
-    Job FindById(int id);
-    Job Create(Job body);
-    Job UpdateById(int id, Job body);
+    ICollection<JobSummaryResponse> FindAll();
+    JobDetailsResponse FindById(int id);
+    JobDetailsResponse Create(JobRequest jobRequest);
+    JobDetailsResponse UpdateById(int id, JobRequest jobRequest);
     void DeleteById(int id);
   }
 }

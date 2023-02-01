@@ -7,6 +7,7 @@ builder.Services.AddControllers();
 builder.Services.RegisterDatabase();
 builder.Services.RegisterJobRepository();
 builder.Services.RegisterJobServices();
+builder.Services.RegisterJobMapper();
 
 builder.Services.AddEndpointsApiExplorer();
 

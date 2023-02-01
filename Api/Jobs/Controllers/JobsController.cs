@@ -1,5 +1,6 @@
+using JobsApi.Api.Jobs.Dtos;
+using JobsApi.Api.Jobs.Mappers;
 using JobsApi.Api.Jobs.Services;
-using JobsApi.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobsApi.Api.Jobs.Controllers
@@ -9,10 +10,12 @@ namespace JobsApi.Api.Jobs.Controllers
   public class JobsController : ControllerBase
   {
     private readonly IJobServices _jobServices;
-
-    public JobsController(IJobServices jobServices)
+    private readonly IJobMapper _jobMapper;
+    public JobsController(IJobServices jobServices, IJobMapper jobMapper)
     {
       _jobServices = jobServices;
+      _jobMapper = jobMapper;
+
     }
 
     [HttpGet]
@@ -29,16 +32,17 @@ namespace JobsApi.Api.Jobs.Controllers
     }
 
     [HttpPost]
-    public IActionResult CreateJob([FromBody] Job body)
+    public IActionResult CreateJob([FromBody] JobRequest body)
     {
       var job = this._jobServices.Create(body);
 
-      return CreatedAtAction(nameof(GetJobById), new { Id = body.Id }, body);
+      return CreatedAtAction(nameof(GetJobById), new { Id = job.Id }, job);
     }
 
     [HttpPut("{id}")]
-    public IActionResult UpdateJob([FromRoute] int id, [FromBody] Job body)
+    public IActionResult UpdateJob([FromRoute] int id, [FromBody] JobRequest body)
     {
+
       var job = this._jobServices.UpdateById(id, body);
 
       return Ok(job);
