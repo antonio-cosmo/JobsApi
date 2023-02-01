@@ -1,4 +1,5 @@
 using JobsApi.Api.Jobs.Services;
+using JobsApi.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace JobsApi.Api.Jobs.Controllers
@@ -19,6 +20,20 @@ namespace JobsApi.Api.Jobs.Controllers
     {
       var response = this._jobServices.FindAll();
       return Ok(response);
+    }
+
+    [HttpGet("{id}")]
+    public IActionResult GetJobById([FromRoute] int id)
+    {
+      return Ok(this._jobServices.FindById(id));
+    }
+
+    [HttpPost]
+    public IActionResult CreateJob([FromBody] Job body)
+    {
+      var job = this._jobServices.Create(body);
+
+      return CreatedAtAction(nameof(GetJobById), new { Id = body.Id }, body);
     }
   }
 }
