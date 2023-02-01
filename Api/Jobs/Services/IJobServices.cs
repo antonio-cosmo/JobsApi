@@ -7,5 +7,7 @@ namespace JobsApi.Api.Jobs.Services
     ICollection<Job> FindAll();
     Job FindById(int id);
     Job Create(Job body);
+    Job UpdateById(int id, Job body);
+    void DeleteById(int id);
   }
 }

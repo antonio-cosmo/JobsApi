@@ -27,6 +27,7 @@ namespace JobsApi.Core.Repositories.Jobs
       if (job is not null)
       {
         this._context.Jobs.Remove(job);
+        this._context.SaveChanges();
       }
     }
 

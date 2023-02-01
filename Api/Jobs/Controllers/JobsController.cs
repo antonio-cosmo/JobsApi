@@ -35,5 +35,21 @@ namespace JobsApi.Api.Jobs.Controllers
 
       return CreatedAtAction(nameof(GetJobById), new { Id = body.Id }, body);
     }
+
+    [HttpPut("{id}")]
+    public IActionResult UpdateJob([FromRoute] int id, [FromBody] Job body)
+    {
+      var job = this._jobServices.UpdateById(id, body);
+
+      return Ok(job);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteJob([FromRoute] int id)
+    {
+      this._jobServices.DeleteById(id);
+
+      return NoContent();
+    }
   }
 }

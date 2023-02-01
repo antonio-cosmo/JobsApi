@@ -18,6 +18,12 @@ namespace JobsApi.Api.Jobs.Services
       return this._jobRepository.Create(body);
     }
 
+    public void DeleteById(int id)
+    {
+      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFound($"Job with id {id} not found");
+      this._jobRepository.DeleteById(id);
+    }
+
     public ICollection<Job> FindAll()
     {
       return this._jobRepository.FindAll();
@@ -27,9 +33,18 @@ namespace JobsApi.Api.Jobs.Services
     {
       var job = this._jobRepository.FindById(id);
 
-      if (job is null) throw new ModelNotFound("Job with id not found");
+      if (job is null) throw new ModelNotFound($"Job with id {id} not found");
 
       return job;
+    }
+
+    public Job UpdateById(int id, Job body)
+    {
+      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFound($"Job with id {id} not found");
+
+      body.Id = id;
+
+      return this._jobRepository.Update(body);
     }
   }
 }
