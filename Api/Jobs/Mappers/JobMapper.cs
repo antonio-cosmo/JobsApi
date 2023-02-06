@@ -30,6 +30,7 @@ namespace JobsApi.Api.Jobs.Mappers
     {
       return new JobSummaryResponse
       {
+        Id = job.Id,
         Title = job.Title,
         Requirements = job.Requirements.Split(';')
       };

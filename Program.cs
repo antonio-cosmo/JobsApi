@@ -8,6 +8,7 @@ builder.Services.RegisterDatabase();
 builder.Services.RegisterJobRepository();
 builder.Services.RegisterJobServices();
 builder.Services.RegisterJobMapper();
+builder.Services.RegisterJobRequestValidator();
 
 builder.Services.AddEndpointsApiExplorer();
 

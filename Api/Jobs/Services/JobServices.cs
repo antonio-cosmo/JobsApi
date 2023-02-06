@@ -1,3 +1,4 @@
+using FluentValidation;
 using JobsApi.Api.Jobs.Dtos;
 using JobsApi.Api.Jobs.Mappers;
 using JobsApi.Core.AppExceptions;
@@ -9,17 +10,22 @@ namespace JobsApi.Api.Jobs.Services
   {
     private readonly IJobRepository _jobRepository;
     private readonly IJobMapper _jobMapper;
+    private readonly IValidator<JobRequest> _jobRequestValidator;
 
-    public JobServices(IJobRepository jobRepository, IJobMapper jobMapper)
+    public JobServices(
+      IJobRepository jobRepository,
+      IJobMapper jobMapper,
+      IValidator<JobRequest> jobRequestValidator)
     {
       _jobRepository = jobRepository;
       _jobMapper = jobMapper;
-
+      _jobRequestValidator = jobRequestValidator;
     }
 
-    public JobDetailsResponse Create(JobRequest body)
+    public JobDetailsResponse Create(JobRequest jobRequest)
     {
-      var jobBody = this._jobMapper.ToModel(body);
+      this._jobRequestValidator.ValidateAndThrow(jobRequest);
+      var jobBody = this._jobMapper.ToModel(jobRequest);
       return this._jobMapper.ToDetailsResponse(
         this._jobRepository.Create(jobBody)
       );
@@ -50,6 +56,8 @@ namespace JobsApi.Api.Jobs.Services
 
     public JobDetailsResponse UpdateById(int id, JobRequest jobRequest)
     {
+      this._jobRequestValidator.ValidateAndThrow(jobRequest);
+
       if (!this._jobRepository.ExistsById(id)) throw new ModelNotFound($"Job with id {id} not found");
 
       var job = this._jobMapper.ToModel(jobRequest);
