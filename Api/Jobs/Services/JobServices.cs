@@ -35,7 +35,7 @@ namespace JobsApi.Api.Jobs.Services
 
     public void DeleteById(int id)
     {
-      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFound($"Job with id {id} not found");
+      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFoundException($"Job with id {id} not found");
       this._jobRepository.DeleteById(id);
     }
 
@@ -49,7 +49,7 @@ namespace JobsApi.Api.Jobs.Services
     {
       var job = this._jobRepository.FindById(id);
 
-      if (job is null) throw new ModelNotFound($"Job with id {id} not found");
+      if (job is null) throw new ModelNotFoundException($"Job with id {id} not found");
 
       return this._jobMapper.ToDetailsResponse(job);
     }
@@ -58,7 +58,7 @@ namespace JobsApi.Api.Jobs.Services
     {
       this._jobRequestValidator.ValidateAndThrow(jobRequest);
 
-      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFound($"Job with id {id} not found");
+      if (!this._jobRepository.ExistsById(id)) throw new ModelNotFoundException($"Job with id {id} not found");
 
       var job = this._jobMapper.ToModel(jobRequest);
       job.Id = id;
