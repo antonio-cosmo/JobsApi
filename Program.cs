@@ -9,7 +9,7 @@ builder.Services.RegisterJobRepository();
 builder.Services.RegisterJobServices();
 builder.Services.RegisterJobMapper();
 builder.Services.RegisterJobRequestValidator();
-
+builder.Services.RegisterAssemblers();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddSwaggerGen();
