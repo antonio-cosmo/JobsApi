@@ -10,6 +10,7 @@ namespace JobsApi.Core.Config
     {
       services.AddScoped<IAssembler<JobSummaryResponse>, JobSummaryAssembler>();
       services.AddScoped<IAssembler<JobDetailsResponse>, JobDetailsAssembler>();
+      services.AddScoped<IPagedAssembler<JobSummaryResponse>, JobSummaryPagedAssembler>();
     }
   }
 }

@@ -18,5 +18,10 @@ namespace JobsApi.Api.Jobs.Dtos
         this.Links.Add(link);
       }
     }
+
+    public void AddLinkIf(bool condition, LinkResponse link)
+    {
+      if (condition) Links.Add(link);
+    }
   }
 }

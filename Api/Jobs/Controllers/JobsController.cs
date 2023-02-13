@@ -10,15 +10,15 @@ namespace JobsApi.Api.Jobs.Controllers
   public class JobsController : ControllerBase
   {
     private readonly IJobServices _jobServices;
-    private readonly IAssembler<JobSummaryResponse> _jobSummaryAssembler;
+    private readonly IPagedAssembler<JobSummaryResponse> _jobSummaryPagedAssembler;
     private readonly IAssembler<JobDetailsResponse> _jobDetailsAssembler;
     public JobsController(
       IJobServices jobServices,
-      IAssembler<JobSummaryResponse> jobSummaryAssembler,
+      IPagedAssembler<JobSummaryResponse> jobSummaryPagedAssembler,
       IAssembler<JobDetailsResponse> jobDetailsAssembler)
     {
       _jobServices = jobServices;
-      _jobSummaryAssembler = jobSummaryAssembler;
+      _jobSummaryPagedAssembler = jobSummaryPagedAssembler;
       _jobDetailsAssembler = jobDetailsAssembler;
 
     }
@@ -27,8 +27,8 @@ namespace JobsApi.Api.Jobs.Controllers
     public IActionResult GetJobs([FromQuery] int page, [FromQuery] int size)
     {
       var body = this._jobServices.FindAll(page, size);
-      body.Items = _jobSummaryAssembler.ToResourceColletion(body.Items, HttpContext);
-      return Ok(body);
+
+      return Ok(_jobSummaryPagedAssembler.ToPagedResource(body, HttpContext));
     }
 
     [HttpGet("{id}", Name = "FindJobById")]
