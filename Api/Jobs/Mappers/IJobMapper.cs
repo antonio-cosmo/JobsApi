@@ -1,5 +1,6 @@
 using JobsApi.Api.Jobs.Dtos;
 using JobsApi.Core.Models;
+using JobsApi.Core.Repositories;
 
 namespace JobsApi.Api.Jobs.Mappers
 {
@@ -7,6 +8,7 @@ namespace JobsApi.Api.Jobs.Mappers
   {
     JobDetailsResponse ToDetailsResponse(Job job);
     JobSummaryResponse ToSummaryResponse(Job job);
+    PagedResponse<JobSummaryResponse> ToPagedSummaryResponse(PagedResult<Job> pageResult);
     Job ToModel(JobRequest job);
   }
 }

@@ -24,11 +24,11 @@ namespace JobsApi.Api.Jobs.Controllers
     }
 
     [HttpGet(Name = "FindAllJobs")]
-    public IActionResult GetJobs()
+    public IActionResult GetJobs([FromQuery] int page, [FromQuery] int size)
     {
-      var body = this._jobServices.FindAll();
-
-      return Ok(_jobSummaryAssembler.ToResourceColletion(body, HttpContext));
+      var body = this._jobServices.FindAll(page, size);
+      body.Items = _jobSummaryAssembler.ToResourceColletion(body.Items, HttpContext);
+      return Ok(body);
     }
 
     [HttpGet("{id}", Name = "FindJobById")]

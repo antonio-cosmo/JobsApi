@@ -2,6 +2,7 @@ using FluentValidation;
 using JobsApi.Api.Jobs.Dtos;
 using JobsApi.Api.Jobs.Mappers;
 using JobsApi.Core.AppExceptions;
+using JobsApi.Core.Repositories;
 using JobsApi.Core.Repositories.Jobs;
 
 namespace JobsApi.Api.Jobs.Services
@@ -43,6 +44,14 @@ namespace JobsApi.Api.Jobs.Services
     {
       var jobModel = this._jobRepository.FindAll();
       return jobModel.Select(job => this._jobMapper.ToSummaryResponse(job)).ToList();
+    }
+
+    public PagedResponse<JobSummaryResponse> FindAll(int page, int size)
+    {
+      var paginationOptions = new PaginationOptions(page, size);
+      var pageResult = _jobRepository.FindAll(paginationOptions);
+      return _jobMapper.ToPagedSummaryResponse(pageResult);
+
     }
 
     public JobDetailsResponse FindById(int id)
