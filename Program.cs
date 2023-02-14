@@ -12,7 +12,7 @@ builder.Services.RegisterJobRequestValidator();
 builder.Services.RegisterAssemblers();
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddSwaggerGen();
+builder.Services.RegisterSwagger();
 
 var app = builder.Build();
 
