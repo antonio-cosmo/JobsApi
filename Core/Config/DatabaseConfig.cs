@@ -1,6 +1,7 @@
 using JobsApi.Core.Database.Contexts;
 
-namespace JobsApi.Core.Config;
+namespace JobsApi.Core.Config
+{
 
 public static class DatabaseConfig
 {
@@ -8,4 +9,5 @@ public static class DatabaseConfig
   {
     services.AddDbContext<AppDbContext>();
   }
+}
 }

@@ -2,8 +2,8 @@ using JobsApi.Core.Database.EntityConfigs;
 using JobsApi.Core.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace JobsApi.Core.Database.Contexts;
-
+namespace JobsApi.Core.Database.Contexts
+{
 public class AppDbContext : DbContext
 {
   public DbSet<Job> Jobs => Set<Job>();
@@ -17,4 +17,5 @@ public class AppDbContext : DbContext
   {
     modelBuilder.ApplyConfiguration(new JobEntityConfig());
   }
+}
 }

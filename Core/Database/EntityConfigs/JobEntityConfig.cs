@@ -2,7 +2,8 @@ using JobsApi.Core.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace JobsApi.Core.Database.EntityConfigs;
+namespace JobsApi.Core.Database.EntityConfigs
+{
 public class JobEntityConfig : IEntityTypeConfiguration<Job>
 {
   public void Configure(EntityTypeBuilder<Job> builder)
@@ -26,4 +27,5 @@ public class JobEntityConfig : IEntityTypeConfiguration<Job>
           .HasColumnType("varchar(500)")
           .IsRequired();
   }
+}
 }
